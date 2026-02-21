@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+techshop-70abf-firebase-adminsdk-fbsvc-f33ba727eb.json
+
 ### STS ###
 .apt_generated
 .classpath
