@@ -8,15 +8,17 @@ package com.TecShop.tienda.service;
  *
  * @author alber
  */
-import com.TecShop.tienda.domain.Producto;
-import com.TecShop.tienda.repository.ProductoRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.TecShop.tienda.domain.Producto;
+import com.TecShop.tienda.repository.ProductoRepository;
 
 @Service
 public class ProductoService {
@@ -87,6 +89,18 @@ public class ProductoService {
     @Transactional(readOnly = true)
     public List<Producto> consultaSQL(double precioInf, double precioSup) {
         return productoRepository.consultaJPQL(precioInf, precioSup);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Producto> consultaPorStock(int tipoStock) {
+        switch (tipoStock) {
+            case 1:
+                return productoRepository.findByExistenciasGreaterThan(0);
+            case 2:
+                return productoRepository.findByExistencias(0);
+            default: 
+                return productoRepository.findAll();
+        }
     }
 
 }

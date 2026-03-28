@@ -4,13 +4,14 @@
  */
 package com.TecShop.tienda.controller;
 
-import com.TecShop.tienda.service.ProductoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.TecShop.tienda.service.ProductoService;
 
 @Controller
 @RequestMapping("/consultas")
@@ -30,8 +31,7 @@ public class ConsultaController {
     }
 
     @PostMapping("/consultaDerivada")
-    public String consultaDerivada(@RequestParam() double precioInf,
-            @RequestParam() double precioSup, Model model) {
+    public String consultaDerivada(@RequestParam() double precioInf, @RequestParam() double precioSup, Model model) {
         var lista = productoService.consultaDerivada(precioInf, precioSup);
         model.addAttribute("productos", lista);
         model.addAttribute("precioInf", precioInf);
@@ -40,9 +40,7 @@ public class ConsultaController {
     }
 
     @PostMapping("/consultaJPQL")
-    public String consultaJPQL(@RequestParam() double precioInf,
-            @RequestParam() double precioSup,
-            Model model) {
+    public String consultaJPQL(@RequestParam() double precioInf, @RequestParam() double precioSup, Model model) {
         var productos = productoService.consultaJPQL(precioInf, precioSup);
         model.addAttribute("productos", productos);
         model.addAttribute("precioInf", precioInf);
@@ -51,12 +49,20 @@ public class ConsultaController {
     }
 
     @PostMapping("/consultaSQL")
-    public String consultaSQL(@RequestParam() double precioInf,
-            @RequestParam() double precioSup, Model model) {
+    public String consultaSQL(@RequestParam() double precioInf, @RequestParam() double precioSup, Model model) {
         var lista = productoService.consultaSQL(precioInf, precioSup);
         model.addAttribute("productos", lista);
         model.addAttribute("precioInf", precioInf);
         model.addAttribute("precioSup", precioSup);
+        return "/consultas/listado";
+    }
+
+    @PostMapping("/consultaStock")
+    public String consultaStock(@RequestParam() int stock, Model model) {
+
+        var productos = productoService.consultaPorStock(stock);
+        model.addAttribute("productos", productos);
+        model.addAttribute("stockSeleccionado", stock);
         return "/consultas/listado";
     }
 

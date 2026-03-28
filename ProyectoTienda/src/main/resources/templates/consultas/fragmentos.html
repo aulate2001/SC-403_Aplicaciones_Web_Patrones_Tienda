@@ -63,7 +63,26 @@
     <div th:replace="~{consultas/fragmentos :: formConsulta('primary',#{consultas.derivadas},'/consultas/consultaDerivada')}"/>
     <div th:replace="~{consultas/fragmentos :: formConsulta('warning',#{consultas.jpql},'/consultas/consultaJPQL')}"/>
     <div th:replace="~{consultas/fragmentos :: formConsulta('success',#{consultas.sql},'/consultas/consultaSQL')}"/>
-    <div class='card'><p>Acá va su Práctica #2</p></div>
+
+    <div class='card p-2'>
+        <div class="card-header text-center bg-info text-white">
+            <h5>Consulta por stock</h5>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/consultas/consultaStock}" method="post">
+                <div class="mb-3">
+                    <label>Seleccione una opcion:</label>
+                    <select name="stock" class="form-select" required>
+                        <option value="1" th:selected="${stockSeleccionado != null and stockSeleccionado == 1}">En Stock</option>
+                        <option value="2" th:selected="${stockSeleccionado != null and stockSeleccionado == 2}">Agotado</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-info text-white">
+                    <i class="fa-solid fa-filter"></i> Filtrar
+                </button>
+            </form>
+        </div>
+    </div>
 </section>
 
 <!-- fragmento 4 para mostrar el formulario factorizado -->

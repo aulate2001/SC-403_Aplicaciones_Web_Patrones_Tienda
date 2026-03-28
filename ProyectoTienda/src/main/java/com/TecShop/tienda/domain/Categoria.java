@@ -21,21 +21,22 @@ import java.util.List;
  *
  * @author alber
  */
-@Data
-@Entity
-@Table(name = "categoria")
-public class Categoria implements Serializable {
+
+@Data // Genera los getter setter toString... automaticamente.
+@Entity // Se usa si reprecenta una tabla
+@Table(name = "categoria") // Se usa cuando el nombre de la tabla no coincide con el nombre de la clase.
+public class Categoria implements Serializable { //El nombre de la clase es usado en el repository      JpaRepository<Categoria, Integer = idCategoria>
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_categoria")
+    @Id // Indica llave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Se usa si la base de datos genera el ID automáticamente.
+    @Column(name = "id_categoria") // Define el nombde de la columna si es diferente al atributo de java
     private Integer idCategoria;
 
-    @Column(unique = true, nullable = false, length = 50)
-    @NotNull
-    @Size(max = 50)
+    @Column(unique = true, nullable = false, length = 50) // Define propiedades de la columna
+    @NotNull // Valida que los datos no sean nulos antes de guardar.
+    @Size(max = 50) // Define tamaño maximo del texto
     private String descripcion;
 
     @Column(length = 1024)
@@ -45,7 +46,7 @@ public class Categoria implements Serializable {
     @Column(name = "activo")
     private Boolean activo;
     
-    @OneToMany(mappedBy = "categoria")
+    @OneToMany(mappedBy = "categoria") // Anotacion de relacion de tabla N:M
     private List<Producto> productos;
     
 }
